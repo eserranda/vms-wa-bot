@@ -1,0 +1,9 @@
+# folder yang tidak perlu masuk ke image build
+.git
+tmp/
+bin/
+vendor/
+*.log
+*.env
+*.sqlite
+coverage.out
