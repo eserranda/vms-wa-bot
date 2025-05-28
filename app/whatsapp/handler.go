@@ -5,7 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"regexp"
 	"time"
+	"vms-bot/utils"
 
 	"github.com/u2takey/go-utils/rand"
 	"go.mau.fi/whatsmeow/types"
@@ -48,7 +50,7 @@ func (w *WhatsappmeowClient) SetEventsHandler(ctx context.Context) {
 				message = e.Message.GetConversation()
 			}
 
-			fmt.Println("New message :", message)
+			fmt.Println("Message :", message)
 
 			// cek apakah pesan kosong, jika iya, abaikan
 			switch {
@@ -66,14 +68,12 @@ func (w *WhatsappmeowClient) SetEventsHandler(ctx context.Context) {
 				return
 			}
 
-			// tandai pesan sebagai dibaca
-			w.MarkMessageAsReadAndTypingStatus(e.Info.ID, e.Info.Chat, e.Info.Sender)
-			// Kirim pesan ke ChatGPT
-			phone_number := e.Info.Chat.User
+			botStatus, _ := regexp.MatchString(`(?i)\bbot status\b`, message)
 
-			fmt.Println("Phone number :", phone_number)
-
-			w.SendMessage(ctx, e.Info.Chat, e.Info.Sender, "hello from whatsapp meow client")
+			if botStatus {
+				w.MarkMessageAsReadAndTypingStatus(e.Info.ID, e.Info.Chat, e.Info.Sender)
+				w.SendMessage(ctx, e.Info.Chat, e.Info.Sender, fmt.Sprintf("%s *%s*, %s", utils.GetGreetingBasedOnTime(), e.Info.PushName, "Bot sedang online!"))
+			}
 		}
 	})
 }
@@ -96,6 +96,6 @@ func (w *WhatsappmeowClient) MarkMessageAsReadAndTypingStatus(msgID types.Messag
 	}
 
 	// Delay acak antara 1 hingga 3 detik
-	randomSleepDuration := time.Duration(rand.Intn(3)+1) * time.Second
+	randomSleepDuration := time.Duration(rand.Intn(5)+1) * time.Second
 	time.Sleep(randomSleepDuration) // Tidur selama waktu acak yang dihasilkan
 }
