@@ -52,7 +52,7 @@ func (h *NotificationHandler) GuestCheckIn(c *gin.Context) {
 
 	message += fmt.Sprintf("%s *%s*\n\n", greeting, request.UserName)
 	message += fmt.Sprintf("%s *%s* %s *%s* %s\n\n", "Tamu atas nama", request.VisitorName, "telah di verifikasi oleh", request.SecurityName, "(security)")
-	message += "Berikut detail kunjungan:\n\n"
+	message += "Berikut detail tamu :\n\n"
 	message += fmt.Sprintf("Nama Tamu : *%s*\n", request.VisitorName)
 	message += fmt.Sprintf("Waktu : *%s*\n", request.CheckIn)
 	message += fmt.Sprintf("Catatan :\n*%s*\n\n", "Tamu telah melakukan check-in.")
@@ -101,12 +101,12 @@ func (h *NotificationHandler) GuestEntry(c *gin.Context) {
 
 	message += fmt.Sprintf("%s *%s*\n\n", greeting, request.UserName)
 	message += fmt.Sprintf("%s *%s* %s *%s* %s\n\n", "Tamu atas nama", request.VisitorName, "telah di verifikasi oleh", request.SecurityName, "(security) untuk mengunjungi Anda.")
-	message += "Berikut detail kunjungan:\n\n"
+	message += "Berikut detail tamu :\n\n"
 	message += fmt.Sprintf("Nama Tamu : *%s*\n", request.VisitorName)
 	message += fmt.Sprintf("Pengunjung : *%s* (%s)\n", request.VisitorType, request.CompanyName)
 	message += fmt.Sprintf("No. Plat : *%s*\n", request.VehicleNumber)
 	message += fmt.Sprintf("Waktu : *%s*\n", request.CheckIn)
-	message += fmt.Sprintf("Tujuan Berkunjung :\n *%s*\n\n", request.Purpose)
+	message += fmt.Sprintf("Tujuan kunjungan :\n*%s*\n\n", request.Purpose)
 	message += "_Visitor Management System_\n"
 	message += "_powered by VMS Bot Notification_"
 
@@ -152,10 +152,10 @@ func (h *NotificationHandler) TamuMasuk(c *gin.Context) {
 	// message = "\n\n"
 	message += fmt.Sprintf("%s *%s*\n\n", greeting, request.UserName)
 	message += fmt.Sprintf("%s *%s*%s\n\n", "Tamu atas nama", request.VisitorName, " baru saja melakukan registrasi untuk mengunjungi Anda.")
-	message += "Berikut detail kunjungan:\n\n"
+	message += "Berikut detail tamu :\n\n"
 	message += fmt.Sprintf("Nama Tamu : *%s*\n", request.VisitorName)
 	message += fmt.Sprintf("No. HP : *%s*\n", request.VisitorPhoneNumber)
-	message += fmt.Sprintf("Tanggal Berkunjung: *%s*\n", request.ArrivalDate)
+	message += fmt.Sprintf("Tanggal kunjungan: *%s*\n", request.ArrivalDate)
 	message += fmt.Sprintf("Jam (estimasi): *%s*\n\n", request.ArrivalTime)
 	message += fmt.Sprintf("Silakan klik link dibawah ini untuk melakukan verifikasi:\n%s\n\n", request.VerificationURI)
 	message += "_Visitor Management System_\n"
